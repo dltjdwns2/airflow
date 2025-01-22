@@ -10,11 +10,11 @@ with DAG(
     start_date=pendulum.datetime(2023, 3, 1, tz="Asia/Seoul"),
     catchup=False
 ) as dag:
-    task_t1 = BashOperator(
+    bash_t1 = BashOperator(
         task_id='bash_t1',
         bash_command='echo "data_interval_end: {{ data_interval_end }} "'
     )
-    task_t2 = BashOperator(
+    bash_t2 = BashOperator(
         task_id='bash_t2',
         env={
             'START_DATE': '{{data_interval_start | ds }}',
@@ -22,3 +22,5 @@ with DAG(
         },
         bash_command='echo $START_DATE && echo $END_DATE'
     )
+
+    bash_t1 >> bash_t2
