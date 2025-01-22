@@ -1,5 +1,4 @@
 from airflow import DAG
-import datetime
 import pendulum
 from airflow.operators.bash import BashOperator
 
@@ -13,7 +12,7 @@ with DAG(
     bash_task_1 = BashOperator(
         task_id='bash_task_1',
         env={
-            'START_DATE': '{{data_interval_start.in_timezone("Asia/Seoul") | ds }}',
+            'START_DATE': '{{ data_interval_start.in_timezone("Asia/Seoul") | ds }}',
             'END_DATE': '{{ (data_interval_end.in_timezone("Asia/Seoul") - macro.dateutil.relativedelta.relativedelta(days=1)) | ds }}',
         },
         bash_command='echo "START_DATE: $START_DATE" && echo "END_DATE: $END_DATE"'
