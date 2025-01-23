@@ -4,6 +4,8 @@ import datetime
 from airflow.decorators import task
 from airflow.operators.email import EmailOperator
 
+
+
 with DAG(
     dag_id="dags_python_email_operator",
     schedule="0 8 1 * *",
